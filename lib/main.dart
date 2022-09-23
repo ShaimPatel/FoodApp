@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:foodapp/config/colors.dart';
 
 import 'auth/login_page.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Food App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: appprimaryColor,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
       ),
       home: const SignIn(),
     );
