@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 18,
           ),
         ),
-        backgroundColor: appprimaryColor,
+        backgroundColor: AppColors.appprimaryColor,
         actions: [
           GestureDetector(
             onTap: () => Navigator.of(context).push(
@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const DrawerSide(),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           children: [
             Padding(

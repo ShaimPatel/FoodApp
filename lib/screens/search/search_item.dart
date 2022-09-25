@@ -42,7 +42,7 @@ class SearchItem extends StatelessWidget {
                       Text(
                         "Product Name",
                         style: TextStyle(
-                          color: textColor,
+                          color: AppColors.textColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
-Color appprimaryColor = Colors.green;
-Color scaffoldBackgroundColor = const Color(0xffcbcbcb);
-Color textColor = Colors.black87;
+class AppColors {
+  static Color appprimaryColor = Colors.green;
+  static Color scaffoldBackgroundColor = const Color(0xffcbcbcb);
+  static Color textColor = Colors.black87;
+}

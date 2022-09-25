@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/screens/Home/single_product.dart';
 import 'package:foodapp/screens/products/product_overview.dart';
+import 'package:provider/provider.dart';
 
-import '../../Home/single_product.dart';
+import '../../../providers/product_provider.dart';
 
-class HerbsProductWidget extends StatelessWidget {
+class HerbsProductWidget extends StatefulWidget {
   const HerbsProductWidget({super.key});
 
   @override
+  State<HerbsProductWidget> createState() => _HerbsProductWidgetState();
+}
+
+class _HerbsProductWidgetState extends State<HerbsProductWidget> {
+  late ProductProvider getHerbsData;
+  @override
+  void initState() {
+    getHerbsData = Provider.of<ProductProvider>(context, listen: false);
+    getHerbsData.fechHerbsProductData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    getHerbsData = Provider.of<ProductProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
@@ -34,42 +51,26 @@ class HerbsProductWidget extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
-              child: Row(
-                children: [
-                  SingleProduct(
-                    onClick: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ProductOverview(
-                          productImage:
-                              'https://assets.stickpng.com/images/58bf1e2ae443f41d77c734ab.png',
-                          productName: 'shivam',
-                        ),
-                      ),
+              child: getHerbsData.herbsProductList.isNotEmpty
+                  ? Consumer<ProductProvider>(
+                      builder: (context, value, child) => Row(
+                          children:
+                              value.geterbsProductDataList.map((e) {
+                        return SingleProduct(
+                          productImage: e.productImage,
+                          productName: e.productName,
+                          onClick: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProductOverview(
+                                    productName: e.productName,
+                                    productImage: e.productImage)));
+                          },
+                        );
+                      }).toList()),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    productImage:
-                        "https://assets.stickpng.com/images/58bf1e2ae443f41d77c734ab.png",
-                    productName: 'Shivam',
-                  ),
-                  SingleProduct(
-                    onClick: () => print("object"),
-                    productImage:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLeUwmN0JJ92gTVoTUSP_ZwXwk2dSXaFHiGw&usqp=CAU",
-                    productName: 'Broccoli ',
-                  ),
-                  SingleProduct(
-                    onClick: () {},
-                    productImage:
-                        "https://pngimg.com/uploads/spinach/spinach_PNG26.png",
-                    productName: 'Butter Leaf',
-                  ),
-                  SingleProduct(
-                    onClick: () {},
-                    productImage:
-                        "https://assets.stickpng.com/images/58bf1e2ae443f41d77c734ab.png",
-                    productName: 'Green vegitable',
-                  ),
-                ],
-              ),
             ),
           ),
         ],

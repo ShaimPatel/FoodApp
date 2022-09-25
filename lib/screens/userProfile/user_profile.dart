@@ -25,7 +25,7 @@ class UserProfile extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: appprimaryColor,
+      backgroundColor: AppColors.appprimaryColor,
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -46,7 +46,7 @@ class UserProfile extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: appprimaryColor,
+        backgroundColor: AppColors.appprimaryColor,
         elevation: 0.0,
         title: const Text("User Profile"),
       ),
@@ -56,14 +56,14 @@ class UserProfile extends StatelessWidget {
             children: [
               Container(
                 height: 100,
-                color: appprimaryColor,
+                color: AppColors.appprimaryColor,
               ),
               Expanded(
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   decoration: BoxDecoration(
-                      color: scaffoldBackgroundColor,
+                      color: AppColors.scaffoldBackgroundColor,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
@@ -93,7 +93,7 @@ class UserProfile extends StatelessWidget {
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        color: textColor,
+                                        color: AppColors.textColor,
                                       ),
                                     ),
                                     const SizedBox(
@@ -103,7 +103,7 @@ class UserProfile extends StatelessWidget {
                                       "sp@gmail.com",
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: textColor,
+                                        color: AppColors.textColor,
                                       ),
                                     ),
                                   ],
@@ -112,7 +112,7 @@ class UserProfile extends StatelessWidget {
                                   radius: 25,
                                   backgroundColor: Colors.white,
                                   child: CircleAvatar(
-                                    backgroundColor: appprimaryColor,
+                                    backgroundColor: AppColors.appprimaryColor,
                                     radius: 20,
                                     child: const Icon(
                                       Icons.edit,
@@ -153,13 +153,13 @@ class UserProfile extends StatelessWidget {
             padding: const EdgeInsets.only(top: 40, left: 30),
             child: CircleAvatar(
                 radius: 50,
-                backgroundColor: appprimaryColor,
+                backgroundColor: AppColors.appprimaryColor,
                 child: CircleAvatar(
                   backgroundImage: const NetworkImage(
                     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
                   ),
                   radius: 45,
-                  backgroundColor: scaffoldBackgroundColor,
+                  backgroundColor: AppColors.scaffoldBackgroundColor,
                 )),
           ),
         ],

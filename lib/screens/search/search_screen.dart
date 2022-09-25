@@ -30,7 +30,7 @@ class _SearchPageState extends State<SearchPage> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide.none),
-                fillColor: Color.fromARGB(255, 236, 232, 232),
+                fillColor: const Color.fromARGB(255, 236, 232, 232),
                 filled: true,
                 hintText: "Search item in the store",
                 suffixIcon: const Icon(Icons.search),

@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/providers/product_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../Home/single_product.dart';
+import '../product_overview.dart';
 
-class RootProductWidget extends StatelessWidget {
+class RootProductWidget extends StatefulWidget {
   const RootProductWidget({super.key});
 
   @override
+  State<RootProductWidget> createState() => _RootProductWidgetState();
+}
+
+class _RootProductWidgetState extends State<RootProductWidget> {
+  late ProductProvider rootProductData;
+  @override
+  void initState() {
+    rootProductData = Provider.of<ProductProvider>(context, listen: false);
+    rootProductData.fetchRootProductData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    rootProductData = Provider.of<ProductProvider>(context);
+    print(rootProductData.getRootProductList.length);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
@@ -33,34 +52,23 @@ class RootProductWidget extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
-              child: Row(
-                children: [
-                  SingleProduct(
-                    onClick: () {},
-                    productImage:
-                        "https://freepngimg.com/save/17893-vegetable-free-png-image/1470x1103",
-                    productName: 'Green vegitable',
-                  ),
-                  SingleProduct(
-                    onClick: () {},
-                    productImage:
-                        "https://www.freepnglogos.com/uploads/vegetables-png/vegetables-about-our-philosophy-super-healthy-kids-23.png",
-                    productName: 'Green vegitable',
-                  ),
-                  SingleProduct(
-                    onClick: () {},
-                    productImage:
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwBelBRcvoPEG5uEKE6xFxy03kq-HgDYEs5g&usqp=CAU",
-                    productName: 'Green vegitable gdjhgdhhghdgh  gdhghgh  ',
-                  ),
-                  SingleProduct(
-                    onClick: () {},
-                    productImage:
-                        "https://freepngimg.com/save/17893-vegetable-free-png-image/1470x1103",
-                    productName: 'Green vegitable',
-                  ),
-                ],
-              ),
+              child: rootProductData.rootProductDataList.isNotEmpty
+                  ? Row(
+                      children: rootProductData.getRootProductList.map((e) {
+                      return SingleProduct(
+                        productImage: e.productImage,
+                        productName: e.productName,
+                        onClick: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ProductOverview(
+                                  productName: e.productName,
+                                  productImage: e.productImage)));
+                        },
+                      );
+                    }).toList())
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    ),
             ),
           ),
         ],

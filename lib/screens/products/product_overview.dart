@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../config/colors.dart';
+import 'package:foodapp/config/colors.dart';
 
 class ProductOverview extends StatefulWidget {
   final String productName;
@@ -57,7 +56,7 @@ class _ProductOverviewState extends State<ProductOverview> {
       bottomNavigationBar: Row(
         children: [
           bonntonNavigatorBar(
-              backgroundColor: textColor,
+              backgroundColor: AppColors.textColor,
               color: Colors.white70,
               iconColor: Colors.grey,
               title: "Add To WishList",
@@ -70,8 +69,8 @@ class _ProductOverviewState extends State<ProductOverview> {
                 });
               }),
           bonntonNavigatorBar(
-              backgroundColor: appprimaryColor,
-              color: textColor,
+              backgroundColor: AppColors.appprimaryColor,
+              color: AppColors.textColor,
               iconColor: Colors.white70,
               title: "Go To Cart",
               iconData: Icons.shop_outlined,
@@ -80,7 +79,7 @@ class _ProductOverviewState extends State<ProductOverview> {
       ),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: appprimaryColor,
+        backgroundColor: AppColors.appprimaryColor,
         title: const Text(
           "Product Overview",
           style: TextStyle(color: Colors.white),
@@ -111,7 +110,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                       "Available Options",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: textColor,
+                        color: AppColors.textColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -201,7 +200,7 @@ class _ProductOverviewState extends State<ProductOverview> {
                     "of a customer. Wikipedi In marketing, a product is an object or system made available for consumer use; it is anything that can be offered to a market to satisfy the desire or need of a customer. Wikipedi",
                     style: TextStyle(
                       fontSize: 16,
-                      color: textColor,
+                      color: AppColors.textColor,
                     ),
                   ),
                 ],
