@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/config/colors.dart';
 
 class UserProfile extends StatelessWidget {
-  const UserProfile({super.key});
+  final String userName;
+  final String userIamge;
+  final String userEmail;
+  final String userUid;
+  const UserProfile(
+      {super.key,
+      required this.userName,
+      required this.userIamge,
+      required this.userEmail,
+      required this.userUid});
 
   @override
   Widget build(BuildContext context) {

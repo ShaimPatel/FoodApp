@@ -3,6 +3,7 @@ import 'package:foodapp/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../Home/single_product.dart';
+import '../../search/search_screen.dart';
 import '../product_overview.dart';
 
 class RootProductWidget extends StatefulWidget {
@@ -32,15 +33,27 @@ class _RootProductWidgetState extends State<RootProductWidget> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Root Vegetable",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(
-                "View All",
-                style: TextStyle(
-                  color: Colors.grey,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) => SearchPage(
+                        searchData: rootProductData.getRootProductList,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "View All",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ],

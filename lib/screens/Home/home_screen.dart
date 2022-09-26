@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/config/colors.dart';
+import 'package:foodapp/providers/product_provider.dart';
 import 'package:foodapp/screens/products/product_widgets/fresh_product.dart';
 import 'package:foodapp/screens/products/product_widgets/herbs_product.dart';
 import 'package:foodapp/screens/products/product_widgets/root_product.dart';
+import 'package:provider/provider.dart';
 
 import '../search/search_screen.dart';
 import 'drawer_page.dart';
@@ -15,6 +17,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ProductProvider allProductItem;
+
+  @override
+  void initState() {
+    allProductItem = Provider.of<ProductProvider>(context, listen: false);
+    allProductItem.getAllProductItem;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.appprimaryColor,
         actions: [
           GestureDetector(
-            onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SearchPage())),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SearchPage(
+                      searchData: allProductItem.getAllProductItem,
+                    ))),
             child: const CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(

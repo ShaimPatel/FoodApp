@@ -1,9 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:foodapp/config/colors.dart';
 
-class SearchItem extends StatelessWidget {
-  const SearchItem({super.key});
+class SearchItem extends StatefulWidget {
+  final String productImage;
+  final String productName;
+  final double productPrice;
 
+  const SearchItem({
+    Key? key,
+    required this.productImage,
+    required this.productName,
+    required this.productPrice,
+  }) : super(key: key);
+
+  @override
+  State<SearchItem> createState() => _SearchItemState();
+}
+
+class _SearchItemState extends State<SearchItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +40,7 @@ class SearchItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  "https://freepngimg.com/save/17893-vegetable-free-png-image/1470x1103",
+                  widget.productImage,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -38,17 +54,18 @@ class SearchItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Product Name",
+                        widget.productName,
                         style: TextStyle(
                           color: AppColors.textColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
-                        "50\$/100 Gram",
-                        style: TextStyle(
+                      Text(
+                        "\$ ${widget.productPrice}",
+                        style: const TextStyle(
                           color: Colors.grey,
                         ),
                       ),

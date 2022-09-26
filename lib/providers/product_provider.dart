@@ -3,6 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/Models/product_model.dart';
 
 class ProductProvider with ChangeNotifier {
+  var productModel;
+  List<ProductModel> searchAllItem = [];
+  productModels(QueryDocumentSnapshot queryDocumentSnapshot) {
+    productModel = ProductModel(
+      productImage: queryDocumentSnapshot.get("productImage"),
+      productName: queryDocumentSnapshot.get("productName"),
+      productPrice:
+          int.parse(queryDocumentSnapshot.get("productPrice").toString()),
+    );
+    searchAllItem.add(productModel);
+  }
+
+  //! ...... Search All Item From data base ......
+  List<ProductModel> get getAllProductItem {
+    return searchAllItem;
+  }
+
   //! ...... Here are The Provider is HerbsData ......
   List<ProductModel> herbsProductList = [];
 
@@ -11,12 +28,7 @@ class ProductProvider with ChangeNotifier {
     QuerySnapshot getData =
         await FirebaseFirestore.instance.collection("HerbsProducts").get();
     for (var element in getData.docs) {
-      print("....+   NAME    ....+" + element.get("productName"));
-      var productModel = ProductModel(
-        productImage: element.get("productImage"),
-        productName: element.get("productName"),
-        productPrice: int.parse(element.get("productPrice").toString()),
-      );
+      productModels(element);
       newList.add(productModel);
     }
     herbsProductList = newList;
@@ -36,11 +48,8 @@ class ProductProvider with ChangeNotifier {
     QuerySnapshot getData =
         await FirebaseFirestore.instance.collection("FreshFruits").get();
     for (var fruitsData in getData.docs) {
-      var productModel = ProductModel(
-        productImage: fruitsData.get("productImage"),
-        productName: fruitsData.get("productName"),
-        productPrice: int.parse(fruitsData.get("productPrice").toString()),
-      );
+      productModels(fruitsData);
+
       newList.add(productModel);
     }
     freshFruitsDataList = newList;
@@ -60,11 +69,7 @@ class ProductProvider with ChangeNotifier {
     QuerySnapshot getRootListData =
         await FirebaseFirestore.instance.collection("RootProduct").get();
     for (var getData in getRootListData.docs) {
-      var productModel = ProductModel(
-        productImage: getData.get("productImage"),
-        productName: getData.get("productName"),
-        productPrice: int.parse(getData.get("productPrice").toString()),
-      );
+      productModels(getData);
       newRootList.add(productModel);
     }
     rootProductDataList = newRootList;

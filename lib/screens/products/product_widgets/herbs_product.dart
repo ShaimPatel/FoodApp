@@ -4,6 +4,7 @@ import 'package:foodapp/screens/products/product_overview.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
+import '../../search/search_screen.dart';
 
 class HerbsProductWidget extends StatefulWidget {
   const HerbsProductWidget({super.key});
@@ -31,15 +32,27 @@ class _HerbsProductWidgetState extends State<HerbsProductWidget> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Herbs Seasonings",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(
-                "View All",
-                style: TextStyle(
-                  color: Colors.grey,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) => SearchPage(
+                        searchData: getHerbsData.geterbsProductDataList,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "View All",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ],
@@ -54,8 +67,7 @@ class _HerbsProductWidgetState extends State<HerbsProductWidget> {
               child: getHerbsData.herbsProductList.isNotEmpty
                   ? Consumer<ProductProvider>(
                       builder: (context, value, child) => Row(
-                          children:
-                              value.geterbsProductDataList.map((e) {
+                          children: value.geterbsProductDataList.map((e) {
                         return SingleProduct(
                           productImage: e.productImage,
                           productName: e.productName,

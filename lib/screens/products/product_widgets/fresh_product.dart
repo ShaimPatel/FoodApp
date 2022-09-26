@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/screens/Home/single_product.dart';
+import 'package:foodapp/screens/search/search_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
@@ -30,15 +31,27 @@ class _FreshProductWidgetState extends State<FreshProductWidget> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Fresh Fruits",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(
-                "View All",
-                style: TextStyle(
-                  color: Colors.grey,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (ctx) => SearchPage(
+                        searchData: getFreshFruitsData.getFreshFruitsData,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "View All",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ],
