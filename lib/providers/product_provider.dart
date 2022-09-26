@@ -7,11 +7,12 @@ class ProductProvider with ChangeNotifier {
   List<ProductModel> searchAllItem = [];
   productModels(QueryDocumentSnapshot queryDocumentSnapshot) {
     productModel = ProductModel(
-      productImage: queryDocumentSnapshot.get("productImage"),
-      productName: queryDocumentSnapshot.get("productName"),
-      productPrice:
-          int.parse(queryDocumentSnapshot.get("productPrice").toString()),
-    );
+        productImage: queryDocumentSnapshot.get("productImage"),
+        productName: queryDocumentSnapshot.get("productName"),
+        productPrice:
+            int.parse(queryDocumentSnapshot.get("productPrice").toString()),
+        productId: queryDocumentSnapshot.get("productId"));
+
     searchAllItem.add(productModel);
   }
 

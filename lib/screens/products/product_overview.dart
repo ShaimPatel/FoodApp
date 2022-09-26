@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/config/colors.dart';
+import 'package:foodapp/providers/wish_list_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProductOverview extends StatefulWidget {
   final String productName;
   final String productImage;
+  final String productId;
+  final int productPrice;
+  final int productQuantity;
+
   const ProductOverview(
-      {super.key, required this.productName, required this.productImage});
+      {super.key,
+      required this.productName,
+      required this.productImage,
+      required this.productId,
+      required this.productPrice,
+      required this.productQuantity});
 
   @override
   _ProductOverviewState createState() => _ProductOverviewState();
@@ -22,7 +33,7 @@ class _ProductOverviewState extends State<ProductOverview> {
   }) {
     return Expanded(
       child: GestureDetector(
-        onTap: () => onTap,
+        onTap: () => onTap(),
         child: Container(
           padding: const EdgeInsets.all(20),
           color: backgroundColor,
@@ -52,14 +63,16 @@ class _ProductOverviewState extends State<ProductOverview> {
 
   @override
   Widget build(BuildContext context) {
+    final wishListData = Provider.of<WishListProvider>(context);
     return Scaffold(
       bottomNavigationBar: Row(
         children: [
           bonntonNavigatorBar(
               backgroundColor: AppColors.textColor,
-              color: Colors.white70,
-              iconColor: Colors.grey,
-              title: "Add To WishList",
+              color: wishListBool != false ? Colors.green : Colors.white70,
+              iconColor: wishListBool != false ? Colors.red : Colors.white70,
+              title:
+                  wishListBool == false ? "Add To WishList" : "Added WishList",
               iconData: wishListBool == false
                   ? Icons.favorite_outline
                   : Icons.favorite,
@@ -67,6 +80,12 @@ class _ProductOverviewState extends State<ProductOverview> {
                 setState(() {
                   wishListBool = !wishListBool;
                 });
+                wishListData.addWishListData(
+                    wishListId: widget.productId,
+                    wishListName: widget.productName,
+                    wishListImage: widget.productImage,
+                    wishListPrice: widget.productPrice,
+                    wishListQuantity: widget.productQuantity);
               }),
           bonntonNavigatorBar(
               backgroundColor: AppColors.appprimaryColor,
@@ -100,8 +119,12 @@ class _ProductOverviewState extends State<ProductOverview> {
                   Container(
                       height: 250,
                       padding: const EdgeInsets.all(40),
-                      child: Image.network(
-                        widget.productImage,
+                      child: Hero(
+                        // transitionOnUserGestures: true,
+                        tag: widget.productId,
+                        child: Image.network(
+                          widget.productImage,
+                        ),
                       )),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -137,7 +160,6 @@ class _ProductOverviewState extends State<ProductOverview> {
                           ],
                         ),
                         const Text("\$${50}"),
-
                         // Count(
                         //   productId: widget.productId,
                         //   productImage: widget.productImage,
@@ -145,34 +167,35 @@ class _ProductOverviewState extends State<ProductOverview> {
                         //   productPrice: widget.productPrice,
                         //   productUnit: '500 Gram',
                         // ),
-                        // Container(
-                        //   padding: EdgeInsets.symmetric(
-                        //     horizontal: 30,
-                        //     vertical: 10,
-                        //   ),
-                        //   decoration: BoxDecoration(
-                        //     border: Border.all(
-                        //       color: Colors.grey,
-                        //     ),
-                        //     borderRadius: BorderRadius.circular(
-                        //       30,
-                        //     ),
-                        //   ),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //       Icon(
-                        //         Icons.add,
-                        //         size: 17,
-                        //         color: primaryColor,
-                        //       ),
-                        //       Text(
-                        //         "ADD",
-                        //         style: TextStyle(color: primaryColor),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              30,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                size: 17,
+                                color: AppColors.appprimaryColor,
+                              ),
+                              Text(
+                                "ADD",
+                                style:
+                                    TextStyle(color: AppColors.appprimaryColor),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   )

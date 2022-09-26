@@ -61,9 +61,11 @@ class _CheckFirebaseState extends State<CheckFirebase> {
                     QueryDocumentSnapshot<Map<String, dynamic>>? products =
                         snapshot.data?.docs[index];
                     return SingleProduct(
-                        productImage: products!['productImage'],
-                        productName: products['productName'],
-                        onClick: () {});
+                      productImage: products!['productImage'],
+                      productName: products['productName'],
+                      onClick: () {},
+                      productId: '',
+                    );
                   },
                 );
         });

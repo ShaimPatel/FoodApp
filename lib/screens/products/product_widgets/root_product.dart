@@ -74,9 +74,14 @@ class _RootProductWidgetState extends State<RootProductWidget> {
                         onClick: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => ProductOverview(
-                                  productName: e.productName,
-                                  productImage: e.productImage)));
+                                    productName: e.productName,
+                                    productImage: e.productImage,
+                                    productId: e.productId,
+                                    productPrice: e.productPrice,
+                                    productQuantity: 3,
+                                  )));
                         },
+                        productId: e.productId,
                       );
                     }).toList())
                   : const Center(

@@ -23,7 +23,7 @@ class UserProvider with ChangeNotifier {
     );
   }
 
-  List<UserModel> UserDetailsList = [];
+  List<UserModel> userDetailsList = [];
 
   userDetails() async {
     List<UserModel> newList = [];
@@ -38,11 +38,11 @@ class UserProvider with ChangeNotifier {
       );
       newList.add(userModel);
     }
-    UserDetailsList = newList;
+    userDetailsList = newList;
     notifyListeners();
   }
 
   List<UserModel> get getUserDataDetails {
-    return UserDetailsList;
+    return userDetailsList;
   }
 }

@@ -3,6 +3,7 @@ import 'package:foodapp/config/colors.dart';
 import 'package:foodapp/providers/user_provider.dart';
 import 'package:foodapp/screens/Home/home_screen.dart';
 import 'package:foodapp/screens/userProfile/user_profile.dart';
+import 'package:foodapp/screens/wishlist/wish_list.dart';
 import 'package:provider/provider.dart';
 
 import '../reviewCart/review_cart.dart';
@@ -83,6 +84,7 @@ class _DrawerSideState extends State<DrawerSide> {
                           Text(
                             e.userName.toString(),
                             overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -90,9 +92,10 @@ class _DrawerSideState extends State<DrawerSide> {
                           ),
                           Text(
                             e.userEmail.toString(),
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 8,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -123,6 +126,7 @@ class _DrawerSideState extends State<DrawerSide> {
                           iconData: Icons.shop_outlined,
                           title: "Review Cart",
                           onTap: () {
+                            Navigator.of(context).pop();
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => const ReviewCart(),
@@ -136,6 +140,7 @@ class _DrawerSideState extends State<DrawerSide> {
                             iconData: Icons.person_outlined,
                             title: "My Profile",
                             onTap: () {
+                              Navigator.of(context).pop();
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => const UserProfile(
@@ -167,11 +172,11 @@ class _DrawerSideState extends State<DrawerSide> {
                             iconData: Icons.favorite_outline,
                             title: "Wishlist",
                             onTap: () {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => ,
-                              //   ),
-                              // );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const WishListPage(),
+                                ),
+                              );
                               return null;
                             }),
                         listTile(

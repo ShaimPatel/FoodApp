@@ -1,7 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodapp/providers/review_cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class CountItem extends StatefulWidget {
-  const CountItem({super.key});
+  final String productName;
+  final String productImage;
+  final String productId;
+  final int productPrice;
+  const CountItem(
+      {super.key,
+      required this.productName,
+      required this.productImage,
+      required this.productId,
+      required this.productPrice});
 
   @override
   State<CountItem> createState() => _CountItemState();
@@ -13,6 +26,7 @@ class _CountItemState extends State<CountItem> {
 
   @override
   Widget build(BuildContext context) {
+    final reviewCartData = Provider.of<ReviewCartProvider>(context);
     return Container(
         height: 35,
         width: 80,
@@ -72,6 +86,13 @@ class _CountItemState extends State<CountItem> {
                     setState(() {
                       isTrue = true;
                     });
+                    reviewCartData.addReviewCartData(
+                      cartId: widget.productId,
+                      cartName: widget.productName,
+                      cartImage: widget.productImage,
+                      cartPrice: widget.productPrice,
+                      cartQuantity: count,
+                    );
                   },
                   child: Text(
                     "Add".toUpperCase(),

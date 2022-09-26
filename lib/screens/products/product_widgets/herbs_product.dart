@@ -72,11 +72,29 @@ class _HerbsProductWidgetState extends State<HerbsProductWidget> {
                           productImage: e.productImage,
                           productName: e.productName,
                           onClick: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProductOverview(
-                                    productName: e.productName,
-                                    productImage: e.productImage)));
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => ProductOverview(
+                            //           productName: e.productName,
+                            //           productImage: e.productImage,
+                            //           productId: e.productId,
+                            //           productPrice: e.productPrice,
+                            //           productQuantity: 2,
+                            //         )));
+                            Navigator.of(context).push(PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      ProductOverview(
+                                productName: e.productName,
+                                productImage: e.productImage,
+                                productId: e.productId,
+                                productPrice: e.productPrice,
+                                productQuantity: 2,
+                              ),
+                              transitionDuration:
+                                  const Duration(milliseconds: 900),
+                            ));
                           },
+                          productId: e.productId,
                         );
                       }).toList()),
                     )

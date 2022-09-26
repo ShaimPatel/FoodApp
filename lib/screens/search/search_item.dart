@@ -25,7 +25,7 @@ class _SearchItemState extends State<SearchItem> {
     return Container(
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.green),
+        color: Colors.grey[200],
         borderRadius: BorderRadius.circular(5),
       ),
       height: 120,
@@ -58,7 +58,9 @@ class _SearchItemState extends State<SearchItem> {
                     children: [
                       Text(
                         widget.productName,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
+                          fontSize: 15,
                           color: AppColors.textColor,
                           fontWeight: FontWeight.bold,
                         ),
@@ -66,33 +68,33 @@ class _SearchItemState extends State<SearchItem> {
                       Text(
                         "\$ ${widget.productPrice}",
                         style: const TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black54,
                         ),
                       ),
                     ],
                   ),
                   Container(
-                    margin: const EdgeInsets.only(right: 5),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    height: 35,
+                    width: 50,
+                    margin: const EdgeInsets.only(right: 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    height: 25,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Colors.green),
                     ),
                     child: Row(
                       children: const [
-                        Expanded(
-                          child: Text(
-                            "50 Gram",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black54,
-                            ),
+                        Text(
+                          "50 G",
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.black54,
                           ),
                         ),
                         Center(
                           child: Icon(
                             Icons.arrow_drop_down,
+                            size: 15,
                           ),
                         )
                       ],
@@ -102,33 +104,20 @@ class _SearchItemState extends State<SearchItem> {
               ),
             ),
           ),
-          Expanded(
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
             child: Container(
-              height: 100,
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 32),
-              child: Container(
-                height: 25,
-                width: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.green),
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.add,
-                        color: Colors.green,
-                        size: 20,
-                      ),
-                      Text(
-                        "Add".toUpperCase(),
-                        style: const TextStyle(color: Colors.green),
-                      ),
-                    ],
-                  ),
-                ),
+              alignment: Alignment.center,
+              height: 25,
+              width: 25,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.green),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: const Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.green,
+                size: 20,
               ),
             ),
           ),

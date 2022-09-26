@@ -1,67 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:foodapp/providers/review_cart_provider.dart';
+import 'package:foodapp/providers/wish_list_provider.dart';
 import 'package:provider/provider.dart';
 
-class ReviewCartItem extends StatefulWidget {
-  final String productName;
-  final String productImage;
-  final String productPrice;
-  final String productId;
-  final String productQuantity;
-
-  const ReviewCartItem({
-    Key? key,
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productId,
-    required this.productQuantity,
-  }) : super(key: key);
+class WishListItem extends StatefulWidget {
+  final String wishListName;
+  final String wishListImage;
+  final String wishListPrice;
+  final String wishListId;
+  final String wishListQuantity;
+  const WishListItem(
+      {super.key,
+      required this.wishListName,
+      required this.wishListImage,
+      required this.wishListPrice,
+      required this.wishListId,
+      required this.wishListQuantity});
 
   @override
-  State<ReviewCartItem> createState() => _ReviewCartItemState();
+  State<WishListItem> createState() => _WishListItemState();
 }
 
-class _ReviewCartItemState extends State<ReviewCartItem> {
-  late ReviewCartProvider reviewCartProvider;
-  // getAddedTotalItem() {
-  //   FirebaseFirestore.instance
-  //       .collection("ReviewCart")
-  //       .doc(FirebaseAuth.instance.currentUser!.uid)
-  //       .collection("YourRevieeCart")
-  //       .doc(widget.productId)
-  //       .get()
-  //       .then(
-  //         (value) => {
-  //           if (mounted) {if (value.exists) {}},
-  //         },
-  //       );
-  // }
-
+class _WishListItemState extends State<WishListItem> {
+  late WishListProvider wishListProvider;
   @override
   void initState() {
-    reviewCartProvider =
-        Provider.of<ReviewCartProvider>(context, listen: false);
-    // reviewCartProvider.deleteReviewCartItem(widget.productId);
+    wishListProvider = Provider.of<WishListProvider>(context, listen: false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    wishListProvider = Provider.of<WishListProvider>(context, listen: false);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: MediaQuery.of(context).size.height / 7,
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.grey[200],
-        ),
+            borderRadius: BorderRadius.circular(10), color: Colors.grey[200]),
         child: Row(
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width / 3.0,
-              child: Image.network(widget.productImage),
+              child: Image.network(widget.wishListImage),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -71,7 +53,7 @@ class _ReviewCartItemState extends State<ReviewCartItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.productName,
+                      widget.wishListName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -80,7 +62,7 @@ class _ReviewCartItemState extends State<ReviewCartItem> {
                       ),
                     ),
                     Text(
-                      "\$ ${widget.productPrice} ",
+                      "\$ ${widget.wishListPrice} ",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -91,7 +73,7 @@ class _ReviewCartItemState extends State<ReviewCartItem> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        "${widget.productQuantity} Gram",
+                        "${widget.wishListQuantity} Gram",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -127,10 +109,12 @@ class _ReviewCartItemState extends State<ReviewCartItem> {
                         ),
                         TextButton(
                           onPressed: () {
-                            reviewCartProvider
-                                .deleteReviewCartItem(widget.productId);
-                            reviewCartProvider.reviewCartData();
+                            wishListProvider
+                                .deleteWishListItem(widget.wishListId);
+                            wishListProvider.wishListData();
+
                             Navigator.of(context).pop();
+
                             setState(() {});
                           },
                           child: const Text("Yes"),
@@ -143,8 +127,8 @@ class _ReviewCartItemState extends State<ReviewCartItem> {
                   );
                 },
                 child: const Icon(
-                  Icons.delete,
-                  color: Colors.blueGrey,
+                  Icons.favorite,
+                  color: Colors.red,
                 ),
               ),
             )

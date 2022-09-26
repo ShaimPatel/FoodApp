@@ -2,16 +2,121 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/count_item.dart';
 
-class SingleProduct extends StatelessWidget {
+class SingleProduct extends StatefulWidget {
   final String productImage;
   final String productName;
   final Function onClick;
+  final String productId;
 
   const SingleProduct(
       {super.key,
       required this.productImage,
       required this.productName,
-      required this.onClick});
+      required this.onClick,
+      required this.productId});
+
+  @override
+  State<SingleProduct> createState() => _SingleProductState();
+}
+
+class _SingleProductState extends State<SingleProduct> {
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(
+          value: "50",
+          child: Row(children: const [
+            Text("50 ",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffd6b733),
+                )),
+            Text(
+              "Gram",
+              style: TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffd6b733),
+              ),
+            )
+          ])),
+      DropdownMenuItem(
+          value: "100",
+          child: Row(children: const [
+            Text("100 ",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffd6b733),
+                )),
+            Text(
+              "Gram",
+              style: TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffd6b733),
+              ),
+            )
+          ])),
+      DropdownMenuItem(
+          value: "250",
+          child: Row(children: const [
+            Text("250 ",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffd6b733),
+                )),
+            Text(
+              "Gram",
+              style: TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffd6b733),
+              ),
+            )
+          ])),
+      DropdownMenuItem(
+          value: "500",
+          child: Row(children: const [
+            Text("500 ",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffd6b733),
+                )),
+            Text(
+              "Gram",
+              style: TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffd6b733),
+              ),
+            )
+          ])),
+      DropdownMenuItem(
+          value: "1000",
+          child: Row(children: const [
+            Text("1000 ",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xffd6b733),
+                )),
+            Text(
+              "Kg",
+              style: TextStyle(
+                fontSize: 8,
+                fontWeight: FontWeight.w500,
+                color: Color(0xffd6b733),
+              ),
+            )
+          ])),
+    ];
+    return menuItems;
+  }
+
+  String selectedValue = "50";
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +145,14 @@ class SingleProduct extends StatelessWidget {
                   width: double.infinity,
                   child: GestureDetector(
                     onTap: () {
-                      onClick();
+                      widget.onClick();
                     },
-                    child: Image.network(
-                      productImage,
-                      fit: BoxFit.contain,
+                    child: Hero(
+                      tag: widget.productId,
+                      child: Image.network(
+                        widget.productImage,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
@@ -58,7 +166,7 @@ class SingleProduct extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 10, left: 20),
                       child: Text(
-                        productName,
+                        widget.productName,
                         maxLines: 1,
                         style: const TextStyle(
                           color: Colors.black,
@@ -69,7 +177,7 @@ class SingleProduct extends StatelessWidget {
                     const Padding(
                       padding: EdgeInsets.only(top: 2, left: 20),
                       child: Text(
-                        "50\$/50 Gram",
+                        "\$50",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
@@ -91,35 +199,24 @@ class SingleProduct extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Row(
-                                children: const [
-                                  SizedBox(width: 5),
-                                  Text(
-                                    "50",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xffd6b733),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Gram",
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xffd6b733),
-                                    ),
-                                  ),
-                                ],
+                              DropdownButton(
+                                value: selectedValue,
+                                items: dropdownItems,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedValue = newValue!;
+                                  });
+                                },
                               ),
-                              const Icon(
-                                Icons.arrow_drop_down,
-                                color: Color(0xffd6b733),
-                              )
                             ],
                           ),
                         ),
-                        const CountItem(),
+                        CountItem(
+                          productId: widget.productId,
+                          productImage: widget.productImage,
+                          productName: widget.productName,
+                          productPrice: 34,
+                        ),
                       ],
                     )
                   ],
