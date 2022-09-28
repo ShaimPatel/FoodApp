@@ -11,7 +11,8 @@ class ProductProvider with ChangeNotifier {
         productName: queryDocumentSnapshot.get("productName"),
         productPrice:
             int.parse(queryDocumentSnapshot.get("productPrice").toString()),
-        productId: queryDocumentSnapshot.get("productId"));
+        productId: queryDocumentSnapshot.get("productId"),
+        productUnit: queryDocumentSnapshot.get('productUnit'));
 
     searchAllItem.add(productModel);
   }

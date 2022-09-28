@@ -42,7 +42,8 @@ class WishListProvider with ChangeNotifier {
           productId: data.get('wishListId'),
           productName: data.get('wishListName'),
           productImage: data.get('wishListImage'),
-          productPrice: data.get('wishListPrice'));
+          productPrice: data.get('wishListPrice'),
+          productUnit: data.get(''));
       newList.add(productModel);
     }
     wishtList = newList;

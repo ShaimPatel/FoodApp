@@ -95,9 +95,9 @@ class _SingleProductState extends State<SingleProduct> {
             )
           ])),
       DropdownMenuItem(
-          value: "1000",
+          value: "1",
           child: Row(children: const [
-            Text("1000 ",
+            Text("1 ",
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
@@ -216,6 +216,7 @@ class _SingleProductState extends State<SingleProduct> {
                           productImage: widget.productImage,
                           productName: widget.productName,
                           productPrice: 34,
+                          productWeight: selectedValue,
                         ),
                       ],
                     )

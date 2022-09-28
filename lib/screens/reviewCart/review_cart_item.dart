@@ -8,6 +8,7 @@ class ReviewCartItem extends StatefulWidget {
   final String productPrice;
   final String productId;
   final String productQuantity;
+  final String productWeight;
 
   const ReviewCartItem({
     Key? key,
@@ -16,6 +17,7 @@ class ReviewCartItem extends StatefulWidget {
     required this.productPrice,
     required this.productId,
     required this.productQuantity,
+    required this.productWeight,
   }) : super(key: key);
 
   @override
@@ -91,7 +93,9 @@ class _ReviewCartItemState extends State<ReviewCartItem> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        "${widget.productQuantity} Gram",
+                        widget.productWeight == "1"
+                            ? "${widget.productWeight}Kg"
+                            : " ${widget.productWeight}Gram",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

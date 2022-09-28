@@ -23,26 +23,28 @@ class UserProvider with ChangeNotifier {
     );
   }
 
-  List<UserModel> userDetailsList = [];
+  // ignore: prefer_typing_uninitialized_variables
+  var currentData;
 
-  userDetails() async {
-    List<UserModel> newList = [];
-    QuerySnapshot userData =
-        await FirebaseFirestore.instance.collection("userData").get();
-    for (var data in userData.docs) {
-      var userModel = UserModel(
-        userName: data.get('userName'),
-        userIamge: data.get('userImage'),
-        userEmail: data.get('userEmail'),
-        userUid: data.get('userUid'),
+  void getUserData() async {
+    UserModel userModel;
+    var value = await FirebaseFirestore.instance
+        .collection("userData")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (value.exists) {
+      userModel = UserModel(
+        userEmail: value.get("userEmail"),
+        userName: value.get("userName"),
+        userUid: value.get("userUid"),
+        userIamge: value.get("userImage"),
       );
-      newList.add(userModel);
+      currentData = userModel;
+      notifyListeners();
     }
-    userDetailsList = newList;
-    notifyListeners();
   }
 
-  List<UserModel> get getUserDataDetails {
-    return userDetailsList;
+  UserModel get currentUserData {
+    return currentData;
   }
 }

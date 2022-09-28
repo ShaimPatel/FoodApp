@@ -6,8 +6,9 @@ import 'package:foodapp/providers/product_provider.dart';
 import 'package:foodapp/providers/review_cart_provider.dart';
 import 'package:foodapp/providers/user_provider.dart';
 import 'package:foodapp/providers/wish_list_provider.dart';
-import 'package:foodapp/screens/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'screens/splash/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

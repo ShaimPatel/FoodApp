@@ -4,8 +4,10 @@ class ReviewCartModel {
   final String cartName;
   final int cartPrice;
   final int cartQuantity;
+  final String productWeight;
 
   ReviewCartModel({
+    required this.productWeight,
     required this.cartId,
     required this.cartImage,
     required this.cartName,

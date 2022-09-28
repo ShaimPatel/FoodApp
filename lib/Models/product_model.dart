@@ -3,12 +3,15 @@ class ProductModel {
   final String productImage;
   final int productPrice;
   final String productId;
+  final List<dynamic> productUnit;
 
-  ProductModel(
-      {required this.productId,
-      required this.productName,
-      required this.productImage,
-      required this.productPrice});
+  ProductModel({
+    required this.productId,
+    required this.productName,
+    required this.productImage,
+    required this.productPrice,
+    required this.productUnit,
+  });
 
   // Map<String, dynamic> createMap() {
   //   return {

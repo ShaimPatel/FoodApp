@@ -75,6 +75,8 @@ class _ReviewCartState extends State<ReviewCart> {
                   productQuantity: reviewCartProvider
                       .getReviewData[index].cartQuantity
                       .toString(),
+                  productWeight:
+                      reviewCartProvider.getReviewData[index].productWeight,
                 );
               }),
     );

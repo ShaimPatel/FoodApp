@@ -1,37 +1,43 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:foodapp/config/colors.dart';
 
-class UserProfile extends StatelessWidget {
-  final String userName;
-  final String userIamge;
-  final String userEmail;
-  final String userUid;
-  const UserProfile(
-      {super.key,
-      required this.userName,
-      required this.userIamge,
-      required this.userEmail,
-      required this.userUid});
+import 'package:foodapp/config/colors.dart';
+import 'package:foodapp/providers/user_provider.dart';
+
+// ignore: must_be_immutable
+class UserProfile extends StatefulWidget {
+  UserProvider userData;
+  UserProfile({
+    Key? key,
+    required this.userData,
+  }) : super(key: key);
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  //? ListTile
+  Widget listTile({required IconData leadingIcon, required String title}) {
+    return Column(
+      children: [
+        const Divider(
+          height: 1,
+        ),
+        ListTile(
+          leading: Icon(leadingIcon),
+          title: Text(title),
+          trailing: const Icon(
+            Icons.arrow_forward_ios_rounded,
+          ),
+        )
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    //? ListTile
-    Widget listTile({required IconData leadingIcon, required String title}) {
-      return Column(
-        children: [
-          const Divider(
-            height: 1,
-          ),
-          ListTile(
-            leading: Icon(leadingIcon),
-            title: Text(title),
-            trailing: const Icon(
-              Icons.arrow_forward_ios_rounded,
-            ),
-          )
-        ],
-      );
-    }
+    var userInforData = widget.userData.currentUserData;
 
     return Scaffold(
       backgroundColor: AppColors.appprimaryColor,
@@ -98,7 +104,7 @@ class UserProfile extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Shivam Patel",
+                                      userInforData.userName,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
@@ -109,9 +115,9 @@ class UserProfile extends StatelessWidget {
                                       height: 2,
                                     ),
                                     Text(
-                                      "sp@gmail.com",
+                                      userInforData.userEmail,
                                       style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 8,
                                         color: AppColors.textColor,
                                       ),
                                     ),
@@ -164,8 +170,8 @@ class UserProfile extends StatelessWidget {
                 radius: 50,
                 backgroundColor: AppColors.appprimaryColor,
                 child: CircleAvatar(
-                  backgroundImage: const NetworkImage(
-                    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+                  backgroundImage: NetworkImage(
+                    userInforData.userIamge,
                   ),
                   radius: 45,
                   backgroundColor: AppColors.scaffoldBackgroundColor,

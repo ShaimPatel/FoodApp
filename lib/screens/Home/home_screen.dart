@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/config/colors.dart';
 import 'package:foodapp/providers/product_provider.dart';
-import 'package:foodapp/screens/products/product_widgets/fresh_product.dart';
 import 'package:foodapp/screens/products/product_widgets/herbs_product.dart';
-import 'package:foodapp/screens/products/product_widgets/root_product.dart';
+import 'package:foodapp/screens/reviewCart/review_cart.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/user_provider.dart';
+import '../products/product_widgets/fresh_product.dart';
+import '../products/product_widgets/root_product.dart';
 import '../search/search_screen.dart';
 import 'drawer_page.dart';
 
@@ -28,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userDetails = Provider.of<UserProvider>(context);
+    userDetails.getUserData();
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
@@ -56,19 +60,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ReviewCart(),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.shopping_cart,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
         ],
       ),
-      drawer: const DrawerSide(),
+      drawer: DrawerSide(
+        userData: userDetails,
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
