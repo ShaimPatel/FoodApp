@@ -58,6 +58,15 @@ class ReviewCartProvider with ChangeNotifier {
   List<ReviewCartModel> get getReviewData {
     return reviewCartList;
   }
+//! Total Price.. .
+
+  totalPrice() {
+    double total = 0.0;
+    for (var element in reviewCartList) {
+      total += element.cartPrice * element.cartQuantity;
+    }
+    return total;
+  }
 
 //! Delete Review Cart Item ....
 

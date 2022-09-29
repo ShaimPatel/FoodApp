@@ -3,7 +3,7 @@ class ProductModel {
   final String productImage;
   final int productPrice;
   final String productId;
-  final List<dynamic> productUnit;
+  final String productUnit;
 
   ProductModel({
     required this.productId,

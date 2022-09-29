@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foodapp/config/colors.dart';
 import 'package:foodapp/providers/review_cart_provider.dart';
 import 'package:foodapp/screens/reviewCart/review_cart_item.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer' as developer;
+
+import '../check_out/delivery_details/delivery_details.dart';
 
 class ReviewCart extends StatefulWidget {
   const ReviewCart({super.key});
@@ -34,7 +37,7 @@ class _ReviewCartState extends State<ReviewCart> {
       bottomNavigationBar: ListTile(
         title: const Text("Total amount"),
         subtitle: Text(
-          "\$ 170.0",
+          "\$ ${reviewCartProvider.totalPrice()}",
           style: TextStyle(color: AppColors.appprimaryColor),
         ),
         trailing: SizedBox(
@@ -52,7 +55,19 @@ class _ReviewCartState extends State<ReviewCart> {
                 ),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              reviewCartProvider.getReviewData.isEmpty
+                  ? Fluttertoast.showToast(
+                      msg: "No item is Added",
+                      backgroundColor: Colors.black,
+                      fontSize: 15,
+                      gravity: ToastGravity.TOP,
+                      textColor: Colors.white,
+                      toastLength: Toast.LENGTH_LONG,
+                    )
+                  : Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const DeliveryDetails()));
+            },
             child: const Text("Submit"),
           ),
         ),

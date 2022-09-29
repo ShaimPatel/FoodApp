@@ -43,7 +43,8 @@ class WishListProvider with ChangeNotifier {
           productName: data.get('wishListName'),
           productImage: data.get('wishListImage'),
           productPrice: data.get('wishListPrice'),
-          productUnit: data.get(''));
+          productUnit:
+              int.parse(data.get('wishListQuantity').toString()).toString());
       newList.add(productModel);
     }
     wishtList = newList;
