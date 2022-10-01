@@ -9,8 +9,8 @@ class DeliveryAddresModel {
   final String city;
   final String area;
   final String pincode;
-  final String? latitude;
-  final String? longitude;
+  final double? latitude;
+  final double? longitude;
   final String? addressType;
 
   DeliveryAddresModel({

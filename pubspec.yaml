@@ -28,6 +28,8 @@ dependencies:
   fluttertoast: ^8.0.9
   location: ^4.4.0
   google_maps_flutter: ^2.2.1
+  pay: ^1.0.11
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +48,7 @@ flutter:
   assets:
     - assets/images/
     - assets/lotties/
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

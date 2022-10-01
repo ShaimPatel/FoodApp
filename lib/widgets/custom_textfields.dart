@@ -21,6 +21,12 @@ class CusstomTextFeilds extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: TextFormField(
+        enableSuggestions: true,
+        toolbarOptions: const ToolbarOptions(
+          copy: true,
+          paste: true,
+        ),
+        enabled: true,
         obscureText: obscuretext,
         controller: controller,
         keyboardType: keyboardtype,

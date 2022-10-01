@@ -93,7 +93,8 @@ class AddAddressProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  var deliveryAddresModel;
+  // ignore: prefer_typing_uninitialized_variables
+  var deliveryAddres;
   List<DeliveryAddresModel> addresList = [];
   fechDeliveryAddress() async {
     List<DeliveryAddresModel> newList = [];
@@ -103,27 +104,29 @@ class AddAddressProvider with ChangeNotifier {
         .get();
 
     if (db.exists) {
-      deliveryAddresModel = DeliveryAddresModel(
-        firstName: db.get('firstName'),
-        lastName: db.get('secondName'),
-        mobileNumber: db.get('mobileNumber'),
-        alternetMobileNumber: db.get('alternetMobileNumber'),
-        society: db.get('society'),
-        street: db.get('street'),
-        landmark: db.get('landmark'),
-        city: db.get('city'),
-        area: db.get('area'),
-        pincode: db.get('pincode'),
-        addressType: db.get("addressType"),
-      );
-      newList.add(deliveryAddresModel);
+      deliveryAddres = DeliveryAddresModel(
+          firstName: db.get('firstName'),
+          lastName: db.get('secondName'),
+          mobileNumber: db.get('mobileNumber'),
+          alternetMobileNumber: db.get('alternetMobileNumber'),
+          society: db.get('society'),
+          street: db.get('street'),
+          landmark: db.get('landMark'),
+          city: db.get('city'),
+          area: db.get('area'),
+          pincode: db.get('pincode'),
+          addressType: db.get("addressType"),
+          latitude: db.get('latitude'),
+          longitude: db.get('logitude'));
+      newList.add(deliveryAddres);
       notifyListeners();
     }
-    deliveryAddresModel = newList;
+    addresList = newList;
     notifyListeners();
   }
 
   List<DeliveryAddresModel> get getDeliveryAddress {
-    return deliveryAddresModel;
+    return addresList;
   }
+
 }

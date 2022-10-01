@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodapp/Models/delivery_address_model.dart';
 import 'package:foodapp/config/colors.dart';
-import 'package:foodapp/providers/add_address_provider.dart';
 import 'package:foodapp/screens/check_out/delivery_address/add_delivery_address.dart';
 import 'package:foodapp/screens/check_out/payment/payment_summary.dart';
 import 'package:provider/provider.dart';
 
+import '../../../providers/add_address_provider.dart';
 import '../single_delivery_item.dart';
 
 class DeliveryDetails extends StatefulWidget {
@@ -15,20 +16,18 @@ class DeliveryDetails extends StatefulWidget {
 }
 
 class _DeliveryDetailsState extends State<DeliveryDetails> {
-  var getAddress;
-  var getData;
-
+  DeliveryAddresModel? value;
   @override
   Widget build(BuildContext context) {
-    getAddress = Provider.of<AddAddressProvider>(context, listen: true);
-    getData = getAddress.fechDeliveryAddress();
+    AddAddressProvider deliveryAddressProvider = Provider.of(context);
+    deliveryAddressProvider.fechDeliveryAddress();
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColors.appprimaryColor,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const PaymentSummary()));
+                builder: (context) => const AddDeliveryAddress()));
           },
           child: const Icon(
             Icons.add,
@@ -41,7 +40,9 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
           child: ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const AddDeliveryAddress()));
+                  builder: (context) => PaymentSummary(
+                        addressList: value!,
+                      )));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.appprimaryColor,
@@ -53,7 +54,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
                 ),
               ),
             ),
-            child: const Text("Add new address"),
+            child: const Text("Payment Summary"),
           ),
         ),
         appBar: AppBar(
@@ -75,21 +76,32 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
                 color: Colors.white,
               ),
             ),
-            getAddress.getDeliveryAddress.isEmpty
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    children: getAddress.getDeliveryAddress.map((e) {
-                      return SingleDeliveryItem(
-                        address:
-                            "area ${e.area} , street ${e.street} , society ${e.society} , pincode ${e.pincode}",
-                        addressType: "",
-                        number: e.mobileNumber,
-                        title: "${e.firstName} ${e.lastName}",
-                      );
-                    }).toList(),
-                  ),
+            SizedBox(
+                height: 140,
+                width: double.infinity,
+                child: deliveryAddressProvider.getDeliveryAddress.isEmpty
+                    ? const Center(
+                        child: Text("No Data"),
+                      )
+                    : Column(
+                        children: deliveryAddressProvider.getDeliveryAddress
+                            .map<Widget>((e) {
+                          setState(() {
+                            value = e;
+                          });
+                          return SingleDeliveryItem(
+                            address:
+                                "aera, ${e.area}, street, ${e.street}, society ${e.society}, pincode ${e.pincode}",
+                            title: "${e.firstName} ${e.lastName}",
+                            number: e.mobileNumber,
+                            addressType: e.addressType == "Home"
+                                ? "Home"
+                                : e.addressType == "Other"
+                                    ? "Other"
+                                    : "Work",
+                          );
+                        }).toList(),
+                      ))
           ],
         ));
   }

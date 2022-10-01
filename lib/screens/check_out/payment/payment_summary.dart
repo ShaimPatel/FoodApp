@@ -1,16 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:foodapp/Models/delivery_address_model.dart';
+import 'package:foodapp/screens/Home/home_screen.dart';
+import 'package:foodapp/screens/check_out/payment/mygoogle_pay.dart';
+
 import 'package:foodapp/screens/check_out/payment/order_item.dart';
 
 import '../../../config/colors.dart';
 
+// ignore: must_be_immutable
 class PaymentSummary extends StatefulWidget {
-  const PaymentSummary({super.key});
+  DeliveryAddresModel addressList;
+
+  PaymentSummary({
+    Key? key,
+    required this.addressList,
+  }) : super(key: key);
 
   @override
   State<PaymentSummary> createState() => _PaymentSummaryState();
 }
 
-enum AddressTypes { upi, bank, netBanking }
+enum AddressTypes { upi, home, netBanking }
 
 class _PaymentSummaryState extends State<PaymentSummary> {
   var type = AddressTypes.upi;
@@ -40,17 +51,11 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                 ),
               ),
               onPressed: () {
-                // reviewCartProvider.getReviewData.isEmpty
-                //     ? Fluttertoast.showToast(
-                //         msg: "No item is Added",
-                //         backgroundColor: Colors.black,
-                //         fontSize: 15,
-                //         gravity: ToastGravity.TOP,
-                //         textColor: Colors.white,
-                //         toastLength: Toast.LENGTH_LONG,
-                //       )
-                //     : Navigator.of(context).push(MaterialPageRoute(
-                //         builder: (context) => const DeliveryDetails()));
+                type == AddressTypes.home
+                    ? Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const HomeScreen()))
+                    : Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const MyGooglePay()));
               },
               child: Text("Place order".toUpperCase()),
             ),
@@ -75,11 +80,12 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                     child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          children: const [
+                          children: [
                             ListTile(
-                              title: Text("First Name & Last Name"),
+                              title: Text(
+                                  "${widget.addressList.firstName.toString()} ${widget.addressList.lastName.toString()}"),
                               subtitle: Text(
-                                "Jankipuram sector-j , Madhur house 2/123 near softpro house Lucknow 226021",
+                                "aera, ${widget.addressList.area}, street, ${widget.addressList.street}, society ${widget.addressList.society}, pincode ${widget.addressList.pincode}",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -204,7 +210,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                     ),
                   ),
                   RadioListTile(
-                    value: AddressTypes.bank,
+                    value: AddressTypes.home,
                     activeColor: Colors.green,
                     groupValue: type,
                     onChanged: (AddressTypes? addressOffice) {
@@ -212,9 +218,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                         type = addressOffice!;
                       });
                     },
-                    title: const Text("Bank"),
+                    title: const Text("Cash on Delivery"),
                     secondary: const Icon(
-                      Icons.payments,
+                      Icons.home,
                       color: Colors.black,
                     ),
                   ),
