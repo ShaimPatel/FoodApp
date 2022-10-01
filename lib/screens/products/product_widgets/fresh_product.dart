@@ -4,6 +4,7 @@ import 'package:foodapp/screens/search/search_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
+import '../../../widgets/shimmer_widget.dart';
 import '../product_overview.dart';
 
 class FreshProductWidget extends StatefulWidget {
@@ -82,8 +83,21 @@ class _FreshProductWidgetState extends State<FreshProductWidget> {
                         productId: e.productId,
                       );
                     }).toList())
-                  : const Center(
-                      child: CircularProgressIndicator(),
+                  // : ListView.builder(
+                  //     scrollDirection: Axis.horizontal,
+                  //     itemCount: getFreshFruitsData.freshFruitsDataList.length,
+                  //     itemBuilder: (_, __) {
+                  //       return const ShimmerWidgetPage();
+                  //     },
+                  //   ),
+                  : Row(
+                      children: const [
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                      ],
                     ),
             ),
           ),

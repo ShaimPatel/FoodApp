@@ -20,11 +20,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late ProductProvider allProductItem;
+  late bool isLoading;
 
   @override
   void initState() {
     allProductItem = Provider.of<ProductProvider>(context, listen: false);
     allProductItem.getAllProductItem;
+
     super.initState();
   }
 

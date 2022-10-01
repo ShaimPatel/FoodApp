@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/providers/product_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../widgets/shimmer_widget.dart';
 import '../../Home/single_product.dart';
 import '../../search/search_screen.dart';
 import '../product_overview.dart';
@@ -84,8 +85,14 @@ class _RootProductWidgetState extends State<RootProductWidget> {
                         productId: e.productId,
                       );
                     }).toList())
-                  : const Center(
-                      child: CircularProgressIndicator(),
+                  : Row(
+                      children: const [
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                      ],
                     ),
             ),
           ),

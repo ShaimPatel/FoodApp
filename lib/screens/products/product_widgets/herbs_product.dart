@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/screens/Home/single_product.dart';
 import 'package:foodapp/screens/products/product_overview.dart';
+import 'package:foodapp/widgets/shimmer_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/product_provider.dart';
@@ -68,18 +69,11 @@ class _HerbsProductWidgetState extends State<HerbsProductWidget> {
                   ? Consumer<ProductProvider>(
                       builder: (context, value, child) => Row(
                           children: value.geterbsProductDataList.map((e) {
+                        Future.delayed(const Duration(seconds: 5));
                         return SingleProduct(
                           productImage: e.productImage,
                           productName: e.productName,
                           onClick: () {
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => ProductOverview(
-                            //           productName: e.productName,
-                            //           productImage: e.productImage,
-                            //           productId: e.productId,
-                            //           productPrice: e.productPrice,
-                            //           productQuantity: 2,
-                            //         )));
                             Navigator.of(context).push(PageRouteBuilder(
                               pageBuilder:
                                   (context, animation, secondaryAnimation) =>
@@ -98,9 +92,17 @@ class _HerbsProductWidgetState extends State<HerbsProductWidget> {
                         );
                       }).toList()),
                     )
-                  : const Center(
-                      child: CircularProgressIndicator(),
+                  : Row(
+                      children: const [
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                        ShimmerWidgetPage(),
+                      ],
                     ),
+
+              // : const CircularProgressIndicator(),
             ),
           ),
         ],
